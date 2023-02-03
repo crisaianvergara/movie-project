@@ -6,9 +6,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import requests
+import os
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY")
 # Create database movie db
 app.app_context().push()
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///movies.db"
@@ -18,7 +19,7 @@ db = SQLAlchemy(app)
 Bootstrap(app)
 
 # Movie Api Key and Endpoint
-MOVIE_DB_API_KEY = "415d2c68ce92d4ab116843c944dda2bf"
+MOVIE_DB_API_KEY = os.environ.get("MOVIE_DB_API_KEY")
 MOVIE_DB_SEARCH_URL = "https://api.themoviedb.org/3"
 MOVIE_DB_IMG_URL = "https://image.tmdb.org/t/p/w500"
 
